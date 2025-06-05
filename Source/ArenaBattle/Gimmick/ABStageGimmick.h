@@ -48,7 +48,7 @@ protected:
 	UFUNCTION()
 	void OnStageTriggerBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
-	//Gate Section
+//Gate Section
 protected:
 	UPROPERTY(VisibleAnywhere, Category = Gate, Meta = (AllowPrivateAccess = "true"))
 	TMap<FName, TObjectPtr<class UStaticMeshComponent>> Gates;
@@ -76,4 +76,33 @@ protected:
 	void SetFight();
 	void SetChooseReward();
 	void SetChooseNext();
+
+// Fight Section
+protected:
+	UPROPERTY(EditAnywhere, Category = Fight, Meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<class AABCharacterNonPlayer> OpponentClass;
+
+	UPROPERTY(EditAnywhere, Category = Fight, Meta = (AllowPrivateAccess = "true"))
+	float OpponentSpawnTime;
+
+	UFUNCTION()
+	void OnOpponentDestroyed(AActor* DestroyedActor);
+
+	FTimerHandle OpponentTimerHandle;
+	void OnOpponentSpawn();
+
+// Reward Section
+protected:
+	UPROPERTY(VisibleAnywhere, Category = Reward, Meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<class AABItemBox> RewardBoxClass;
+
+	UPROPERTY(VisibleAnywhere, Category = Reward, Meta = (AllowPrivateAccess = "true"))
+	TArray<TWeakObjectPtr<class AABItemBox>> RewardBoxes;
+
+	TMap<FName, FVector> RewardBoxLocations;
+
+	UFUNCTION()
+	void OnRewardTriggerBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	void SpawnRewardBoxes();
 };
