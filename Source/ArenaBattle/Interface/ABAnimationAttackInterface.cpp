@@ -4,7 +4,3 @@
 #include "Interface/ABAnimationAttackInterface.h"
 
 // Add default functionality here for any IABAnimationAttackInterface functions that are not pure virtual.
-
-void IABAnimationAttackInterface::AttackHitCheck()
-{
-}
